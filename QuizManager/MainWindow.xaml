@@ -1,0 +1,114 @@
+﻿<Window x:Class="QuizManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuizManager"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="534" Width="800">
+    <Grid HorizontalAlignment="Right" Margin="0,0,-0.4,-0.2" Width="794" Height="505" VerticalAlignment="Bottom">
+        <Grid Margin="300,201,185.6,94.8">
+            <TextBox x:Name="QuizItemTextBox" HorizontalAlignment="Left" Height="185" Margin="0,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="308" TextChanged="QuizItemTextBoxTextChanged"/>
+            <Button x:Name="AddQuizItemBtn" IsEnabled="False" Content="Add new" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top" Width="75" Click="AddQuizItemBtn_Click"/>
+            <Button x:Name="RemoveQuizBtn" IsEnabled="False" Content="Delete" HorizontalAlignment="Left" Margin="94,5,0,0" VerticalAlignment="Top" Width="50" Click="RemoveQuiz"/>
+            <Button x:Name="UpdateTextBtn" IsEnabled="False" Content="Update Text" HorizontalAlignment="Left" Margin="168,5,0,0" VerticalAlignment="Top" Width="75" Click="EditDecriptions"/>
+        </Grid>
+        <TabControl Margin="0,0,185.6,303.8" HorizontalAlignment="Right" Width="308">
+            <TabItem Margin="0,0,-25.4,0" Header="All Quizzes">
+                <ListBox  HorizontalAlignment="Left" Height="172" Margin="0,-1,0,0" VerticalAlignment="Top" Width="302" x:Name="QuizListBox" SelectionChanged="QuizListBoxSelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="5 0" Text="{Binding Key}" />
+                                <TextBlock Margin="5 0" Text="{Binding Value}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+            <TabItem Header="Course Quizzes " Margin="21.4,0,-48.4,0">
+                <ListBox  HorizontalAlignment="Left" Height="172" Margin="0,-1,0,0" VerticalAlignment="Top" Width="302" x:Name="CategoryQuizListBox">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="5 0" Text="{Binding Key}" />
+                                <TextBlock Margin="5 0" Text="{Binding Value}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+            <TabItem Header="Model quizzes" Margin="49.4,0,-53,0">
+                <ListBox  HorizontalAlignment="Left" Height="172" Margin="0,-1,0,0" VerticalAlignment="Top" Width="302" x:Name="SubListBox">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="5 0" Text="{Binding Key}" />
+                                <TextBlock Margin="5 0" Text="{Binding Value}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+        </TabControl>
+        <GroupBox Header="Courses" HorizontalAlignment="Left" Height="209" Margin="0,24,0,0" VerticalAlignment="Top" Width="295">
+            <GroupBox Header="New Course" HorizontalAlignment="Left" Height="183" Margin="0,3,-1.8,-13.2" VerticalAlignment="Top" Width="285">
+                <StackPanel>
+                    <DockPanel LastChildFill="False" Margin="5">
+                        <Label>ID</Label>
+                        <TextBox x:Name="CourseIdTxtBox" Width="200" DockPanel.Dock="Right" VerticalContentAlignment="Center" TextChanged="CourseIdTextChnaged"></TextBox>
+                    </DockPanel>
+                    <DockPanel LastChildFill="False" Margin="5">
+                        <Label>Name</Label>
+                        <TextBox x:Name="CourseNameTxtBox" Width="200" DockPanel.Dock="Right" VerticalContentAlignment="Center" TextChanged="CourseNameTextChanged"></TextBox>
+                    </DockPanel>
+                    <DockPanel LastChildFill="False" Margin="5 8 5 0">
+                        <Label>Moments</Label>
+                        <TextBox x:Name="CourseModelsTxtBox" Width="220" DockPanel.Dock="Right" VerticalContentAlignment="Center" TextChanged="CourseModelsTextChanged" ></TextBox>
+                    </DockPanel>
+                    <Label Foreground="Red" HorizontalAlignment="Right" Margin="0">*Use ';' as delimeter, Ex: Module1;Module2;</Label>
+                    <Button x:Name="AddCourseBtn" Width="150" Margin="5 10" Click="AddCourseBtnClick" IsEnabled="False">Add Course</Button>
+                </StackPanel>
+            </GroupBox>
+        </GroupBox>
+        <Grid Margin="0,0,498.6,94.8" HorizontalAlignment="Right" Width="295" Height="172" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="225"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ListBox x:Name="CourseListBox" Grid.Column="0" Margin="5,5,75.8,5" HorizontalContentAlignment="Stretch" 
+                                         ItemsSource="{Binding}" SelectionChanged="CourseListBoxSelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <TextBlock Text="{Binding Name}"/>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <TextBlock Text="{Binding Id}"/>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox x:Name="ModelsListBox" Grid.ColumnSpan="2" Margin="154,5,10.2,5" SelectionChanged="ModelListBoxSelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button x:Name="DeleteCourseBtn" Content="Delete Course" Margin="10,172,132.8,-27" Click="DeleteCourseBtnClick" IsEnabled="False"/>
+            <CheckBox Content="Link mode" Grid.ColumnSpan="2" Margin="184,210,10.2,-61" Name="LinkModeCheckBox" Checked="LinkModeChecked" Unchecked="LinkModeUnchecked"/>
+            <Button Name="LinkBtn" Content="Link item to a Cat or Cat-Sub category" Grid.ColumnSpan="2" Margin="10,238,34.2,-92" IsEnabled="False" Click="LinkItemBtnClick"/>
+        </Grid>
+        <Button x:Name="SaveBtn" Content="Save" HorizontalAlignment="Left" Margin="684,66,0,0" VerticalAlignment="Top" Width="75" Click="SaveBtnClicked"/>
+        <Button x:Name="OpenBtn" Content="Open" HorizontalAlignment="Left" Margin="685,109,0,0" VerticalAlignment="Top" Width="74" Click="Open"/>
+    </Grid>
+</Window>
